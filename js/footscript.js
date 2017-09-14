@@ -274,7 +274,7 @@
 
         }
     }
-
+/*
     cvs.addEventListener('click',function(e){
         var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
         if(state ==false){
@@ -302,6 +302,7 @@
               voice.swooshing.play();
         }
     },false);
+  */
     cvs.addEventListener('tap',function(e){
         var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
         if(state ==false){
