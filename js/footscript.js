@@ -303,7 +303,7 @@
         }
     },false);
   
-    cvs.addEventListener('touchend',function(e){
+    cvs.addEventListener('touchstart',function(e){
         var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
         if(state ==false){
             if(guide == true){
