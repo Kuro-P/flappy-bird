@@ -302,7 +302,7 @@
               voice.swooshing.play();
         }
     },false);
-    cvs.addEventListener('touchstart',function(e){
+    cvs.addEventListener('tap',function(e){
         var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
         if(state ==false){
             if(guide == true){
