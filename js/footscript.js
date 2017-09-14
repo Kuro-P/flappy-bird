@@ -274,7 +274,7 @@
 
         }
     }
-/*
+
     cvs.addEventListener('click',function(e){
         var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
         if(state ==false){
@@ -302,8 +302,8 @@
               voice.swooshing.play();
         }
     },false);
-  */
-    cvs.addEventListener('tap',function(e){
+  
+   /* cvs.addEventListener('touchend',function(e){
         var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
         if(state ==false){
             if(guide == true){
@@ -329,7 +329,7 @@
               voice.swooshing.currentTime = 0;
               voice.swooshing.play();
         }
-    },false);
+    },false);*/
     window.addEventListener('keydown',function(e){
         e.preventDefault();
         if((e.which || e.keyCode) == 32 && state == true){
