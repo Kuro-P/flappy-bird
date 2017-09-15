@@ -167,7 +167,7 @@
         if(size == "big" && state == true){
             switch(num){
                 case 0: contxt.drawImage(atlas,990,118,28,40,numX,cvsH/8,28,40);break;
-                case 1: contxt.drawImage(atlas,267,908,26,40,numX,cvsH/8,26,40);break;
+                case 1: contxt.drawImage(atlas,268,908,26,40,numX,cvsH/8,26,40);break;
                 case 2: contxt.drawImage(atlas,582,318,28,40,numX,cvsH/8,28,40);break;
                 case 3: contxt.drawImage(atlas,610,318,28,40,numX,cvsH/8,28,40);break;
                 case 4: contxt.drawImage(atlas,638,318,28,40,numX,cvsH/8,28,40);break;
