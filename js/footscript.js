@@ -84,15 +84,13 @@
         contxt.drawImage(atlas,0,0,288,512,bg2X,0,cvsW,cvsH);
     }
     function drawBird(){          
-            //var lastTime = 0 ,curTime = 0;
             curT = new Date().getTime();
-            //the bird change wings.png per 100ms.
-            //console.log(curTime - lastTime);
+            //the bird change wings.png per 80ms.
             if(curT - lastT >80 && state == true){
                 n = (n >= 2 )?0:(n+1);                                     
                 lastT = curT;  
             }
-            contxt.drawImage(atlas,56*n,966,46,58,bird.x, bird.y ,46,58);
+            contxt.drawImage(atlas,56*n,967,46,58,bird.x, bird.y ,46,58);
             if(state == true){
                 bird.y += bird.vy;
                 bird.vy += bird.g; 
@@ -275,6 +273,7 @@
             }
         }
     }
+/*
     cvs.addEventListener('click',function(e){
         var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
         if(state ==false){
@@ -302,6 +301,7 @@
               voice.swooshing.play();
         }
     },false);
+    */
     cvs.addEventListener('touchstart',function(e){
         var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
         if(state ==false){
