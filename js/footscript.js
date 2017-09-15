@@ -274,7 +274,7 @@
 
         }
     }
-
+/*
     cvs.addEventListener('click',function(e){
         var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
         if(state ==false){
@@ -301,7 +301,7 @@
               voice.swooshing.currentTime = 0;
               voice.swooshing.play();
         }
-    },false);
+    },false);*/
   
     cvs.addEventListener('touchstart',function(e){
         var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
