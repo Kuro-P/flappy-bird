@@ -273,8 +273,21 @@
             }
         }
     }
-/*
-    cvs.addEventListener('click',function(e){
+        function isPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+                    "SymbianOS", "Windows Phone",
+                    "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+    function res(e){
         var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
         if(state ==false){
             if(guide == true){
@@ -300,35 +313,9 @@
               voice.swooshing.currentTime = 0;
               voice.swooshing.play();
         }
-    },false);
-    */
-    cvs.addEventListener('touchstart',function(e){
-        var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
-        if(state ==false){
-            if(guide == true){
-                if(clickP>=0 && clickP<=110){
-                    showLogo();
-                    drawBg();
-                    drawBird();
-                    drawPipe();
-                    drawLand();
-                    getReady();
-                    guide = false;
-                }else if(guide == false){
-                    state = true;
-                    hasVoice = false;
-                    gameStart();
-                }
-            }else if(clickP>=0 && clickP<=110){               
-                Initial();
-                gameStart();
-            }
-        }else{  
-              bird.vy = -7;
-              voice.swooshing.currentTime = 0;
-              voice.swooshing.play();
-        }
-    },false);
+    }
+    cvs.addEventListener('click',res,false);
+    cvs.addEventListener('touchstart',res,false);
     window.addEventListener('keydown',function(e){
         e.preventDefault();
         if((e.which || e.keyCode) == 32 && state == true){
@@ -342,6 +329,9 @@
     contxt.font = "20px sans-serif";
     contxt.fillStyle = "Teal";  
     contxt.fillText("loading...",(cvsW-100)/2,cvsH/2-10); 
+    if(!isPC()){
+        cvs.removeListener('click',res);
+    }
     window.onload = function(){
         Initial();
         state = false;
