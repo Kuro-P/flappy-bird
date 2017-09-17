@@ -330,7 +330,7 @@
     contxt.fillStyle = "Teal";  
     contxt.fillText("loading...",(cvsW-100)/2,cvsH/2-10); 
     if(!isPC()){
-        cvs.removeListener('click',res);
+       cvs.removeEventListener('click',res)
     }
     window.onload = function(){
         Initial();
