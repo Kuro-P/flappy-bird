@@ -4,17 +4,17 @@
         contxt = cvs.getContext("2d");
     var cvsW = cvs.width,
         cvsH = cvs.height;
-    var state = true; //use to distinguish the bird had hit the boundary or not   
-    var score = 0, // the player score
+    var state = true; //是否撞到管道
+    var score = 0, // 用户得分
         bestScore = 0,
-        hasAdd = false, // use to control that every pipe can only add one point
-        hasVoice = false; // use to control the hit voice
-    var guide = true; // use to distinguish the guide has done or not
+        hasAdd = false, // 控制 通过一个管道加一分
+        hasVoice = false; // 控制 通过一个管道响一声
+    var guide = true; // 引导界面
     var cvsB = cvs.getBoundingClientRect();
-    var n = 0; // use to change bird.png
+    var n = 0; // 更改图片的计数器
     var lastT = 0,curT = 0; // Bird's wings time controller  
     var lastTime = 0, curTime = 0,timer; // Game render controller
-    // The landVx value should be canvas.width divide exactly, or the animation will have an space.
+    // 地面速度应该被canvas画布的宽度整除 否则动画会有空白
     var landVx = -6;
     var land1X = 0 , land2X = cvsW;
     var bg1X = 0 ,bg2X = cvsW;
@@ -236,6 +236,7 @@
         contxt.drawImage(atlas,582,115,200,50,(cvsW-200)/2,cvsH/4,200,50); //get Ready
         contxt.drawImage(atlas,580,177,120,104,(cvsW-120)/2,cvsH/4+50+20,120,104); //tap
     }
+
     function gameStart(){
         timer = window.requestAnimationFrame(function(){
             curTime = new Date().getTime();
@@ -273,7 +274,7 @@
             }
         }
     }
-        function isPC() {
+    function isPC() {
         var userAgentInfo = navigator.userAgent;
         var Agents = ["Android", "iPhone",
                     "SymbianOS", "Windows Phone",
@@ -287,8 +288,11 @@
         }
         return flag;
     }
+
     function res(e){
-        var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
+        var pgX = e.pageX || e.target.offsetLeft + cvsB.left,
+            clickP = pgX - cvsB.left - (cvsW-237)/2;
+
         if(state ==false){
             if(guide == true){
                 if(clickP>=0 && clickP<=110){
@@ -314,8 +318,11 @@
               voice.swooshing.play();
         }
     }
-    cvs.addEventListener('click',res,false);
-    cvs.addEventListener('touchstart',res,false);
+    //cvs.addEventListener('click',res,false);
+    $(cvs).on('tap',function(e){
+        console.log(e);
+        res(e);
+    });
     window.addEventListener('keydown',function(e){
         e.preventDefault();
         if((e.which || e.keyCode) == 32 && state == true){
@@ -328,7 +335,7 @@
 
     contxt.font = "20px sans-serif";
     contxt.fillStyle = "Teal";  
-    contxt.fillText("loading...",(cvsW-100)/2,cvsH/2-10); 
+    contxt.fillText("loading",cvsW/2-35,cvsH/2-10);
     if(!isPC()){
        cvs.removeEventListener('click',res)
     }
@@ -337,6 +344,5 @@
         state = false;
         showLogo();
     };
-  
     /*Player click or tap the screen to start game.*/
   
