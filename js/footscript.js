@@ -19,7 +19,7 @@
     var land1X = 0 , land2X = cvsW;
     var bg1X = 0 ,bg2X = cvsW;
     var atlas = new Image();
-    atlas.src = "imgs/atlas.png";
+    atlas.src = "imgs/atlas.png"; //游戏用到到图片素材(雪碧图)
     var bird = {
         initial : { x:40,y:200,vy:5},
         x : 40,
@@ -43,7 +43,7 @@
         passH: 130,
         downmax : -280,
         space : 180,
-        vx : -4,
+        vx : -4
     };
 
     var pipe_1 = { x:cvsW/2 , y:0 ,guideY:0},
@@ -141,12 +141,14 @@
         contxt.drawImage(atlas,584,0,336,112,land1X,cvsH-112,336,112);
         contxt.drawImage(atlas,584,0,336,112,land2X,cvsH-112,336,112);
     }
+
+    /*core function */
     function judgeState(pip){
-        if( birdHead - pip.x >=0 ){
-            if(birdButt - pip.x <= pipe.w){
-                if(birdBottom - (pipe.h + pip.y) <= pipe.passH && birdTop - (pipe.h + pip.y) >=0 ){
+        if( birdHead - pip.x >=0 ){ //鸟进入管道
+            if(birdButt - pip.x <= pipe.w){ //鸟在管道的可通过区域
+                if(birdBottom - (pipe.h + pip.y) <= pipe.passH && birdTop - (pipe.h + pip.y) >=0 ){ //判断鸟的上下边缘有无撞壁
                     state = true;
-                    if(birdHead - pip.x >= pipe.x/2-10 && hasAdd == false){
+                    if(birdHead - pip.x >= pipe.x/2-10 && hasAdd == false){ //鸟通过可通过与区域的一半 加分 放音效
                         score++;
                         voice.point.currentTime = 0;
                         voice.point.play();
@@ -164,6 +166,7 @@
            state = false;
         }
     }
+
     function drawScore(size,num,numX,numY){
         if(size == "big" && state == true){
             switch(num){
@@ -274,20 +277,6 @@
             }
         }
     }
-    function isPC() {
-        var userAgentInfo = navigator.userAgent;
-        var Agents = ["Android", "iPhone",
-                    "SymbianOS", "Windows Phone",
-                    "iPad", "iPod"];
-        var flag = true;
-        for (var v = 0; v < Agents.length; v++) {
-            if (userAgentInfo.indexOf(Agents[v]) > 0) {
-                flag = false;
-                break;
-            }
-        }
-        return flag;
-    }
 
     function res(e){
         var pgX = e.pageX || e.target.offsetLeft + cvsB.left,
@@ -318,31 +307,20 @@
               voice.swooshing.play();
         }
     }
-    //cvs.addEventListener('click',res,false);
+
     $(cvs).on('tap',function(e){
-        console.log(e);
         res(e);
     });
-    window.addEventListener('keydown',function(e){
-        e.preventDefault();
-        if((e.which || e.keyCode) == 32 && state == true){
-            bird.vy = -7;
-            voice.swooshing.currentTime = 0;
-            voice.swooshing.play();
-        }
-    });
-//---------------- running code ----------------------
 
+    //游戏加载中
     contxt.font = "20px sans-serif";
     contxt.fillStyle = "Teal";  
     contxt.fillText("loading",cvsW/2-35,cvsH/2-10);
-    if(!isPC()){
-       cvs.removeEventListener('click',res)
-    }
     window.onload = function(){
         Initial();
         state = false;
         showLogo();
     };
-    /*Player click or tap the screen to start game.*/
+
+    /*Please tap the screen to start game.*/
   
