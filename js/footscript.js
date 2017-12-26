@@ -4,22 +4,22 @@
         contxt = cvs.getContext("2d");
     var cvsW = cvs.width,
         cvsH = cvs.height;
-    var state = true; //use to distinguish the bird had hit the boundary or not   
-    var score = 0, // the player score
+    var state = true; //是否撞到管道
+    var score = 0, // 用户得分
         bestScore = 0,
-        hasAdd = false, // use to control that every pipe can only add one point
-        hasVoice = false; // use to control the hit voice
-    var guide = true; // use to distinguish the guide has done or not
+        hasAdd = false, // 控制 通过一个管道加一分
+        hasVoice = false; // 控制 通过一个管道响一声
+    var guide = true; // 引导界面
     var cvsB = cvs.getBoundingClientRect();
-    var n = 0; // use to change bird.png
+    var n = 0; // 更改图片的计数器
     var lastT = 0,curT = 0; // Bird's wings time controller  
     var lastTime = 0, curTime = 0,timer; // Game render controller
-    // The landVx value should be canvas.width divide exactly, or the animation will have an space.
+    // 地面速度应该被canvas画布的宽度整除 否则动画会有空白
     var landVx = -6;
     var land1X = 0 , land2X = cvsW;
     var bg1X = 0 ,bg2X = cvsW;
     var atlas = new Image();
-    atlas.src = "imgs/atlas.png";
+    atlas.src = "imgs/atlas.png"; //游戏用到到图片素材(雪碧图)
     var bird = {
         initial : { x:40,y:200,vy:5},
         x : 40,
@@ -43,7 +43,7 @@
         passH: 130,
         downmax : -280,
         space : 180,
-        vx : -4,
+        vx : -4
     };
 
     var pipe_1 = { x:cvsW/2 , y:0 ,guideY:0},
@@ -141,12 +141,14 @@
         contxt.drawImage(atlas,584,0,336,112,land1X,cvsH-112,336,112);
         contxt.drawImage(atlas,584,0,336,112,land2X,cvsH-112,336,112);
     }
+
+    /*core function */
     function judgeState(pip){
-        if( birdHead - pip.x >=0 ){
-            if(birdButt - pip.x <= pipe.w){
-                if(birdBottom - (pipe.h + pip.y) <= pipe.passH && birdTop - (pipe.h + pip.y) >=0 ){
+        if( birdHead - pip.x >=0 ){ //鸟进入管道
+            if(birdButt - pip.x <= pipe.w){ //鸟在管道的可通过区域
+                if(birdBottom - (pipe.h + pip.y) <= pipe.passH && birdTop - (pipe.h + pip.y) >=0 ){ //判断鸟的上下边缘有无撞壁
                     state = true;
-                    if(birdHead - pip.x >= pipe.x/2-10 && hasAdd == false){
+                    if(birdHead - pip.x >= pipe.x/2-10 && hasAdd == false){ //鸟通过可通过与区域的一半 加分 放音效
                         score++;
                         voice.point.currentTime = 0;
                         voice.point.play();
@@ -164,6 +166,7 @@
            state = false;
         }
     }
+
     function drawScore(size,num,numX,numY){
         if(size == "big" && state == true){
             switch(num){
@@ -236,6 +239,7 @@
         contxt.drawImage(atlas,582,115,200,50,(cvsW-200)/2,cvsH/4,200,50); //get Ready
         contxt.drawImage(atlas,580,177,120,104,(cvsW-120)/2,cvsH/4+50+20,120,104); //tap
     }
+
     function gameStart(){
         timer = window.requestAnimationFrame(function(){
             curTime = new Date().getTime();
@@ -273,22 +277,11 @@
             }
         }
     }
-        function isPC() {
-        var userAgentInfo = navigator.userAgent;
-        var Agents = ["Android", "iPhone",
-                    "SymbianOS", "Windows Phone",
-                    "iPad", "iPod"];
-        var flag = true;
-        for (var v = 0; v < Agents.length; v++) {
-            if (userAgentInfo.indexOf(Agents[v]) > 0) {
-                flag = false;
-                break;
-            }
-        }
-        return flag;
-    }
+
     function res(e){
-        var clickP = e.pageX - cvsB.left - (cvsW-237)/2;
+        var pgX = e.pageX || e.target.offsetLeft + cvsB.left,
+            clickP = pgX - cvsB.left - (cvsW-237)/2;
+
         if(state ==false){
             if(guide == true){
                 if(clickP>=0 && clickP<=110){
@@ -314,29 +307,20 @@
               voice.swooshing.play();
         }
     }
-    cvs.addEventListener('click',res,false);
-    cvs.addEventListener('touchstart',res,false);
-    window.addEventListener('keydown',function(e){
-        e.preventDefault();
-        if((e.which || e.keyCode) == 32 && state == true){
-            bird.vy = -7;
-            voice.swooshing.currentTime = 0;
-            voice.swooshing.play();
-        }
-    });
-//---------------- running code ----------------------
 
+    $(cvs).on('tap',function(e){
+        res(e);
+    });
+
+    //游戏加载中
     contxt.font = "20px sans-serif";
     contxt.fillStyle = "Teal";  
-    contxt.fillText("loading...",(cvsW-100)/2,cvsH/2-10); 
-    if(!isPC()){
-       cvs.removeEventListener('click',res)
-    }
+    contxt.fillText("loading",cvsW/2-35,cvsH/2-10);
     window.onload = function(){
         Initial();
         state = false;
         showLogo();
     };
-  
-    /*Player click or tap the screen to start game.*/
+
+    /*Please tap the screen to start game.*/
   
