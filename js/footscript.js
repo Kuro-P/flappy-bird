@@ -308,9 +308,7 @@
         }
     }
 
-    $(cvs).on('tap',function(e){
-        res(e);
-    });
+    cvs.addEventListener('click', res, false);
 
     //游戏加载中
     contxt.font = "20px sans-serif";

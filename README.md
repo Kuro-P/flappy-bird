@@ -25,10 +25,13 @@
    
    （在网上看到一个完成度很好的 “压扁Flappy Bird” 实现效果 [点击这里](http://www.17sucai.com/pins/demoshow/4352)）
   
-  * 后续补充 --17.12.25
+  * 补充 --17.12.25
     * 该用库时就用库
     * 注意命名和代码整洁度...不是实现功能就行了...
-    
+
+  * 补充 --18.4.14
+    * 之前为了消除移动端300ms点击延迟，引入了zepto库，使用其tap方法监听;现采用touch-action: manipulation;解决移动端点击延迟问题，该属性支持IE10+。具体可查看这篇博文：<a href="https://www.cnblogs.com/vanstrict/p/5700957.html">5步解决移动端延迟</a>
+
   * 实现效果：<br/>
     ![image](https://github.com/Kuro-P/Flappy-Bird/blob/master/snap/GameGuide.jpg "游戏截图")
     
