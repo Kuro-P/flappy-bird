@@ -1,5 +1,5 @@
 # flappy-bird
- 前几年大火的 flappy bird 游戏，用 canvas 试着实现了下。
+曾经很火的 flappy bird 小游戏，用 canvas 试着实现了下。
 
 ## 玩法说明
 - 小鸟撞到"柱子"或"地面"都会 Game Over
@@ -34,7 +34,7 @@
   * 不支持 QQ 浏览器
 
 ## 预览
-预览地址：https://kuro-p.github.io/Flappy-Bird/main.html
+预览地址：https://kuro-p.github.io/flappy-bird/index.html
 
-![image](https://github.com/Kuro-P/Flappy-Bird/blob/master/snap/GameGuide.jpg "游戏截图")
+![image](https://github.com/Kuro-P/flappy-bird/blob/master/preview/game_start.jpg "游戏截图")
     
